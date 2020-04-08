@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FiveMania SocketChat</title>
-  <script src="./feather.min.js"></script>
-  <script src="./anime.min.js"></script>
-  <link href="./index.css" rel="stylesheet">
+  <script src="feather.min.js"></script>
+  <script src="anime.min.js"></script>
+  <link href="index.css" rel="stylesheet">
 </head>
 <body>
   <div class="chat">
@@ -64,22 +64,24 @@
   function validateNick(input) {
     if (input.value == null) {
       localStorage.chatUser = "👤";
-    } else if (author == "Azzy") {
+    } else if (input.value == "FiveMania") {
       location.href = location.href;
-    } else if (author == "Yancds") {
+    } else if (input.value == "Azzy") {
       location.href = location.href;
-    } else if (author == "Dimaguy") {
+    } else if (input.value == "Yancds") {
       location.href = location.href;
-    } else if (author == "📢") {
+    } else if (input.value == "Dimaguy") {
       location.href = location.href;
-    } else if (author == "💬") {
+    } else if (input.value == "📢") {
       location.href = location.href;
-    } else if (author == "👤") {
+    } else if (input.value == "💬") {
+      location.href = location.href;
+    } else if (input.value == "👤") {
       location.href = location.href;
     } else {
       let usernick = input.value;
       localStorage.chatUser = usernick;
-      input.outerHTML = `<span style="color: royalblue;">🎉 Bem-vindo(a), ${usernick}!</span>`;
+      input.outerHTML = `<span style="color: royalblue; margin-left: 10px;">🎉 Bem-vindo(a), ${usernick}!</span>`;
     }
   }
 
