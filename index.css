@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+
+* { font-family: 'Sen', sans-serif; }
+
+body, html {
+  overflow-x: hidden;
+}
+
+.message {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.chat {
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 25px;
+	flex: 1;
+	flex-direction: column;
+	justify-content: left;
+	align-self: center;
+	width: 100%;
+}
+
+.chat input {
+	width: 100%;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 7.5px;
+}

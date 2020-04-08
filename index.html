@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FiveMania SocketChat</title>
+  <script src="/feather.min.js"></script>
+  <script src="/anime.min.js"></script>
+  <link href="/index.css" rel="stylesheet">
+</head>
+<body>
+  <div class="chat">
+    <div class="messages"></div>
+    <hr style="opacity: 0;">
+    <input type="text" id="messageInput" placeholder="Digite aqui e pressione ENTER para enviar..." onkeydown="if (event.keyCode == 13) { sendMessage(this.value); this.value = ''; }">
+  </div>
+</body>
+<script>
+  feather.replace();
+
+  var connection;
+
+  function addMessage(author, content) {
+    if (author == "FiveMania") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: #ff4f4f; text-shadow: 0 0 10px #ff4f4f;">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else if (author == "Azzy") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: #32a852; text-shadow: 0 0 10px #43b963;">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else if (author == "Yancds") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: #b42df7; text-shadow: 0 0 10px #b42df7;">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else if (author == "Dimaguy") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: dodgerblue; text-shadow: 0 0 10px dodgerblue;">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else if (author == "📢") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: gray; padding: 7.5px; text-shadow: 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.25);">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else if (author == "💬") {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: gray; padding: 7.5px; text-shadow: 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.25);">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    } else {
+      document.querySelector('.messages').innerHTML += `<span class="message"><strong style="font-size: 20px; color: gray;">${author}</strong> <i data-feather="chevron-right" style="color: gray;"></i> ${content}</span>`;
+    }
+    feather.replace();
+  }
+
+
+  function connectTo(address) {
+    connection = new WebSocket(address, ['soap', 'xmpp']);
+    connection.onopen = function () {
+      addMessage("📢", "Conectado com êxito!");
+      connection.send({author: "📢", content: `${localStorage.chatUser} conectou-se!`});
+    };
+
+    connection.onerror = function (error) {
+      addMessage("📢", "Erro na conexão");
+    };
+
+    connection.onmessage = function (e) {
+      addMessage(e.data.author, e.data.content);
+    };
+  }
+
+  function sendMessage(content) {
+    connection.send({author: localStorage.chatUser, content: content});
+    addMessage(localStorage.chatUser, content);
+  }
+
+  function validateNick(input) {
+    if (input.value == null) {
+      localStorage.chatUser = "👤";
+    } else if (author == "Azzy") {
+      location.href = location.href;
+    } else if (author == "Yancds") {
+      location.href = location.href;
+    } else if (author == "Dimaguy") {
+      location.href = location.href;
+    } else if (author == "📢") {
+      location.href = location.href;
+    } else if (author == "💬") {
+      location.href = location.href;
+    } else if (author == "👤") {
+      location.href = location.href;
+    } else {
+      let usernick = input.value;
+      localStorage.chatUser = usernick;
+      input.outerHTML = `<span style="color: royalblue;">🎉 Bem-vindo(a), ${usernick}!</span>`;
+    }
+  }
+
+  addMessage("📢", "Aplicação inicalizada.");
+  if (!localStorage.chatUser) {
+    addMessage("💬", `Insira um nome de usuário: <input type="text" onkeydown="if (event.keyCode == 13) { validateNick(this); }" style="width: 260px; margin-left: 10px;" />`);
+  }
+  addMessage("💬", `Insira um endereço de servidor websocket: <input type="text" onkeydown="if (event.keyCode == 13) { connectTo(this.value); this.outerHTML = '<span>🔒</span>' }" style="width: 260px; margin-left: 10px;" />`);
+</script>
+</html>
